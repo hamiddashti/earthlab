@@ -1,7 +1,7 @@
-earthlab_code_sample
+Nitrogen Map
 ==============================
 
-Code sample for remote sensing data science position at the Earth Lab. 
+Code sample for remote sensing data science position at the Earth Lab. The goal of this project is to use machine learning techniques to estimate nitrogen content of shrubs using imaging spectroscopy. The machine learning techniques used is partial least square regression. 
 
 Project Organization
 ------------
