@@ -19,7 +19,7 @@ lib64/
 parts/
 sdist/
 var/
-data/
+
 *.egg-info/
 .installed.cfg
 *.egg
@@ -88,3 +88,7 @@ target/
 
 # Mypy cache
 .mypy_cache/
+
+# Big files
+hyper_image.tif
+hyper_image.tfw
