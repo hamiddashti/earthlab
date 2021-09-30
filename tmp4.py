@@ -7,12 +7,14 @@ from sklearn.model_selection import cross_val_predict
 import xarray as xr
 import rioxarray as rxr
 
-import fit_ml 
+import main_funs
 import pandas as pd
-
 
 # -------- Reading the data --------------
 data = pd.read_csv("./tmp.csv")
+print((f"\nnumber of observations {data.shape[0]-1} and 
+    {data.shape[1]-1} spectral bands"))
+
 print(data)
 # -------- Data cleaning -----------------
 # Remove samples with no N measurments
