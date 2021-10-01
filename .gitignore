@@ -20,6 +20,8 @@ parts/
 sdist/
 var/
 
+
+
 *.egg-info/
 .installed.cfg
 *.egg
@@ -76,8 +78,8 @@ target/
 # Jupyter NB Checkpoints
 .ipynb_checkpoints/
 
-# # exclude data from source control by default
-# /data/
+# exclude data from source control by default
+/data/
 
 # Mac OS-specific storage files
 .DS_Store

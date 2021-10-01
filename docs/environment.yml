@@ -303,4 +303,4 @@ dependencies:
     - gdown==3.14.0
     - sphinx-rtd-theme==1.0.0
     - tqdm==4.62.3
-prefix: /data/home/hamiddashti/miniconda3/envs/earthlab
+
