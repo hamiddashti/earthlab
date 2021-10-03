@@ -1,4 +1,4 @@
-Nitrogen Map
+Nitrogen Map (Earth Lab project)
 ==============================
 
 **Welcome! And thank you for the oppurtunity.**
