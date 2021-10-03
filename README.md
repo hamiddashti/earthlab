@@ -3,7 +3,7 @@ Maping plant nitrogen using hyperspectral and ML (Earth Lab)
 
 **Welcome! And thank you for the oppurtunity.**
 
-Here is the code sample that demostrate:
+Here is the code sample that demonstrate:
 
 * Part of remote sensing data that I work with (hyperspectral).
 * The reproducibility of the work.
