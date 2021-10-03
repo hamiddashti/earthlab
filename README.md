@@ -1,4 +1,4 @@
-Maping shrub nitrogen content
+Maping plant nitrogen using hyperspectral and ML
 ==============================
 
 **Welcome! And thank you for the oppurtunity.**
