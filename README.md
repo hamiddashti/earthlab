@@ -1,4 +1,4 @@
-Maping plant nitrogen using hyperspectral and ML
+Maping plant nitrogen using hyperspectral and ML (Earth Lab)
 ==============================
 
 **Welcome! And thank you for the oppurtunity.**
