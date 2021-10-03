@@ -54,7 +54,7 @@ Project Organization
 Goal
 ------------
 
-The main goal of this project is to create the nitrogen map of shrublands in the western US using hyperspectral data. To do so, we use partial least square regression (PLSR) which is a machine learning technique. In this model, the spectral bands are the predictors (features) and the measured percent nitrogen content is the target variable. The nitrogen data were measured from multiple shrubs in  10*10 meters plots collected from Idaho and California. The hyperspectral data comes from airborne AVIRIS-NG sensors. The original data is publically available:
+The main goal of this project is to create the nitrogen map of shrublands in the western US using hyperspectral data. To do so, we use partial least square regression (PLSR) which is a machine learning technique. In this model, the spectral bands are the predictors (features) and the measured percent nitrogen content is the target variable. [Here](https://github.com/hamiddashti/earthlab/blob/main/references/Short%20answer%20on%20why%20plsr.pdf) I provided short reasoning why I chose plsr for this project. The nitrogen data were measured from multiple shrubs in  10*10 meters plots collected from Idaho and California. The hyperspectral data comes from airborne AVIRIS-NG sensors. The original data is publically available:
 
 * [Link to the filed data](https://daac.ornl.gov/VEGETATION/guides/Idaho_field_shrub_data.html)
 * [Link to the hyperspectral images](https://daac.ornl.gov/VEGETATION/guides/AVIRIS-NG_Data_Idaho.html)
