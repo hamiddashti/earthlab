@@ -46,18 +46,17 @@ Project Organization
     │
     ├── models             <- Trained and serialized models
     │
-    ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-    │                         the creator's initials, and a short `-` delimited description, e.g.
-    │                         `1.0-hd-initial-data-exploration`.
+    ├── notebooks          <- Main juypter notebook (00-hd-estimate-nitrogen.ipynb)
+    │                      
     │
-    ├── references         <- Includes some reference manuscripts
+    ├── references         <- Includes some reference manuscripts and my response
     │
     ├── reports            
     │   └── figures        <- Generated graphics and figures
     │
     ├── environment.yml   <- The conda environment generated with `conda env freeze > requirements.txt`
     │
-    ├── src                <- Source code for use in this project.
+    ├── src                <- Source code used in this project.
     │   ├── __init__.py    <- Makes src a Python module
     │   │
     │   ├── data           <- Script to download data
@@ -66,7 +65,7 @@ Project Organization
     │   ├── features       <- Scripts to turn raw data into features for modeling
     │   │   └── build_features.py
     │   │
-    │   ├── models         <- Scripts to train models and then use trained models to make
+    │   ├── models         <- Scripts to train model and then use it to make
     │   │   │                 predictions
     │   │   ├── predict_model.py
     │   │   └── train_model.py
