@@ -42,7 +42,7 @@ Project Organization
     │   ├── processed      <- The final data sets for modeling.
     │   └── raw            <- The original, immutable data dump.
     │
-    ├── docs               <- A default Sphinx project; see sphinx-doc.org for details
+    ├── docs               <- Documentation provided by Sphinx
     │
     ├── models             <- Trained and serialized models
     │
