@@ -36,7 +36,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">src</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">earthlab</a></li>
 </ul>
 
         </div>
@@ -69,7 +69,13 @@
 
 
 <div class="viewcode-block" id="gdown_file"><a class="viewcode-back" href="../../../src.data.html#src.data.make_dataset.gdown_file">[docs]</a><span class="k">def</span> <span class="nf">gdown_file</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">outname</span><span class="p">):</span>
-    <span class="n">gdown</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">outname</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+    <span class="sd">&quot;&quot;&quot;Download from Google Drive</span>
+
+<span class="sd">    :param str url: the google drive download link</span>
+<span class="sd">    :param str outname: the output name for downloaded file</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">gdown</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">outname</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

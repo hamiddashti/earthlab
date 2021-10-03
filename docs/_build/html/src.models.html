@@ -38,7 +38,8 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">src</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">earthlab</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="setup.html">setup module</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="src.html">src package</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="src.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="src.data.html">src.data package</a></li>
@@ -67,7 +68,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="modules.html">src</a> &raquo;</li>
+          <li><a href="modules.html">earthlab</a> &raquo;</li>
           <li><a href="src.html">src package</a> &raquo;</li>
       <li>src.models package</li>
       <li class="wy-breadcrumbs-aside">
@@ -90,10 +91,34 @@
 <dt class="sig sig-object py" id="src.models.earhlab_lib.hyper_plsr">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">src.models.earhlab_lib.</span></span><span class="sig-name descname"><span class="pre">hyper_plsr</span></span><a class="reference internal" href="_modules/src/models/earhlab_lib.html#hyper_plsr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.earhlab_lib.hyper_plsr" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>PLSR regression with two different featuer selection</p>
+<ul class="simple">
+<li><p>The first feature selection method (vip-model) is based on variable importance</p></li>
+</ul>
+<p>projection (VIP). The VIP function calculates the influence of each PLSR
+regression coefficient. VIP values greater than 1 are usally considered as
+important.
+(<a class="reference external" href="https://www.sciencedirect.com/science/article/pii/S0169743912001542">https://www.sciencedirect.com/science/article/pii/S0169743912001542</a>)</p>
+<ul class="simple">
+<li><p>The second feature selection method (vs-model) is based on discarding features</p></li>
+</ul>
+<p>that have small coefficients iteratively. The idea is to optimize for both
+numbers of components and features simultaneously.
+<a class="reference external" href="https://nirpyresearch.com/variable-selection-method-pls-python/">https://nirpyresearch.com/variable-selection-method-pls-python/</a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.earhlab_lib.hyper_plsr.plsr_vip">
 <span class="sig-name descname"><span class="pre">plsr_vip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_comp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/earhlab_lib.html#hyper_plsr.plsr_vip"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.earhlab_lib.hyper_plsr.plsr_vip" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>fit PLSR based on vip feature selection</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>np.array</em>) – the feature matrix</p></li>
+<li><p><strong>y</strong> (<em>np.array</em>) – the target matrix</p></li>
+<li><p><strong>max_comp</strong> (<em>int</em>) – maximum components allowed for PLSR</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.earhlab_lib.hyper_plsr.plsr_vs">
@@ -103,7 +128,16 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.earhlab_lib.hyper_plsr.predict">
 <em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X_m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/earhlab_lib.html#hyper_plsr.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.earhlab_lib.hyper_plsr.predict" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Apply plsr model to new observation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>X_m</strong> (<em>np.array</em>) – new features</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>predicted target (e.g. nitrogen)</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.earhlab_lib.hyper_plsr.simple_pls_cv">
@@ -113,12 +147,30 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.earhlab_lib.hyper_plsr.vip">
 <span class="sig-name descname"><span class="pre">vip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/earhlab_lib.html#hyper_plsr.vip"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.earhlab_lib.hyper_plsr.vip" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Calculate Variable Importance Projection</p>
+<p>There is a dicsuccion to infclude this into skit-learn
+<a class="reference external" href="https://github.com/scikit-learn/scikit-learn/issues/7050">https://github.com/scikit-learn/scikit-learn/issues/7050</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>model</strong> (<em>sklearn-object</em>) – The fitted plsr model</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.earhlab_lib.hyper_plsr.xr_predict">
 <em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">xr_predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xdr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/earhlab_lib.html#hyper_plsr.xr_predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.earhlab_lib.hyper_plsr.xr_predict" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Wrapper around predict function to apply it to xarray objects</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_dr</strong> (<em>xr.dataarray</em>) – the xarray image</p></li>
+<li><p><strong>model</strong> (<em>sklearn_obj</em>) – the final plsr model</p></li>
+<li><p><strong>dim</strong> (<em>str</em>) – dimension along which model should be applied (e.g. “band”)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 

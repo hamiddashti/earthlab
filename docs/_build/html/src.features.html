@@ -39,7 +39,8 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">src</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">earthlab</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="setup.html">setup module</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="src.html">src package</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="src.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="src.data.html">src.data package</a></li>
@@ -68,7 +69,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="modules.html">src</a> &raquo;</li>
+          <li><a href="modules.html">earthlab</a> &raquo;</li>
           <li><a href="src.html">src package</a> &raquo;</li>
       <li>src.features package</li>
       <li class="wy-breadcrumbs-aside">
@@ -90,7 +91,26 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="src.features.build_features.clean_data">
 <span class="sig-prename descclassname"><span class="pre">src.features.build_features.</span></span><span class="sig-name descname"><span class="pre">clean_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/features/build_features.html#clean_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.features.build_features.clean_data" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Cleaning training data for negative numbers and
+bad values including water absorption regions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>csv</em>) – A N*M pandas data frame (pd.read_csv()) where N is observation and M is features</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>X: The cleaned X (features) matrix</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>y: The target values</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>non_negative_columns&amp;water_bands: Index of bad bands (removed)</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>np.array wl: Cleaned wavelength</p>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 <section id="module-src.features">

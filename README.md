@@ -87,7 +87,9 @@ Steps to reproduce the results
 
     jupyter notebook
 4. Open the following notebook from notebook directory:
-
+    
+    cd notebooks
+    
     [00-hd-estimate-nitrogen.ipynb](notebooks/00-hd-estimate-nitrogen.ipynb)
 5. Run cells
     

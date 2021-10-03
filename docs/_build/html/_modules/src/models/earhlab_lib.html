@@ -36,7 +36,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">src</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">earthlab</a></li>
 </ul>
 
         </div>
@@ -76,6 +76,22 @@
 
 
 <div class="viewcode-block" id="hyper_plsr"><a class="viewcode-back" href="../../../src.models.html#src.models.earhlab_lib.hyper_plsr">[docs]</a><span class="k">class</span> <span class="nc">hyper_plsr</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;PLSR regression with two different featuer selection</span>
+
+<span class="sd">    - The first feature selection method (vip-model) is based on variable importance</span>
+<span class="sd">    projection (VIP). The VIP function calculates the influence of each PLSR</span>
+<span class="sd">    regression coefficient. VIP values greater than 1 are usally considered as</span>
+<span class="sd">    important.</span>
+<span class="sd">    (https://www.sciencedirect.com/science/article/pii/S0169743912001542)</span>
+
+<span class="sd">    - The second feature selection method (vs-model) is based on discarding features</span>
+<span class="sd">    that have small coefficients iteratively. The idea is to optimize for both</span>
+<span class="sd">    numbers of components and features simultaneously.</span>
+<span class="sd">    https://nirpyresearch.com/variable-selection-method-pls-python/</span>
+
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scores</span> <span class="o">=</span> <span class="kc">None</span>
@@ -84,11 +100,12 @@
         <span class="c1"># Run PLS with suggested number of components</span>
         <span class="n">pls</span> <span class="o">=</span> <span class="n">PLSRegression</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="n">n_comp</span><span class="p">)</span>
         <span class="n">pls</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="c1"># Calculate R2 and mean square error</span>
         <span class="k">if</span> <span class="n">scores</span><span class="p">:</span>
             <span class="n">y_c</span> <span class="o">=</span> <span class="n">pls</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
             <span class="c1"># Cross-validation</span>
             <span class="n">y_cv</span> <span class="o">=</span> <span class="n">cross_val_predict</span><span class="p">(</span><span class="n">pls</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-            <span class="c1"># Calculate scores for calibration and cross-validation</span>
+            <span class="c1"># Calculate r2 for calibration and cross-validation</span>
             <span class="n">r2_c</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_c</span><span class="p">)</span>
             <span class="n">r2_cv</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_cv</span><span class="p">)</span>
             <span class="c1"># Calculate mean square error for calibration and cross validation</span>
@@ -98,6 +115,13 @@
         <span class="k">return</span> <span class="n">pls</span></div>
 
 <div class="viewcode-block" id="hyper_plsr.vip"><a class="viewcode-back" href="../../../src.models.html#src.models.earhlab_lib.hyper_plsr.vip">[docs]</a>    <span class="k">def</span> <span class="nf">vip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Calculate Variable Importance Projection</span>
+
+<span class="sd">        There is a dicsuccion to infclude this into skit-learn</span>
+<span class="sd">        https://github.com/scikit-learn/scikit-learn/issues/7050</span>
+
+<span class="sd">        :argument sklearn-object model: The fitted plsr model</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">t</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">x_scores_</span>
         <span class="n">w</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">x_weights_</span>
         <span class="n">q</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">y_loadings_</span>
@@ -113,35 +137,39 @@
         <span class="k">return</span> <span class="n">vips</span></div>
 
 <div class="viewcode-block" id="hyper_plsr.plsr_vip"><a class="viewcode-back" href="../../../src.models.html#src.models.earhlab_lib.hyper_plsr.plsr_vip">[docs]</a>    <span class="k">def</span> <span class="nf">plsr_vip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">max_comp</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;fit PLSR based on vip feature selection</span>
+
+<span class="sd">        :param np.array X: the feature matrix</span>
+<span class="sd">        :param np.array y: the target matrix</span>
+<span class="sd">        :param int max_comp: maximum components allowed for PLSR</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Initiate matrices for later propogation</span>
+        <span class="c1"># Mean sqaure error</span>
         <span class="n">mse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">max_comp</span><span class="p">)</span>
+        <span class="c1"># list of selected index for each component</span>
         <span class="n">idx_selected</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># list of caculated VIPs for each component</span>
         <span class="n">vip_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">max_comp</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_comp</span><span class="p">):</span>
             <span class="n">pls1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">simple_pls_cv</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">n_comp</span><span class="o">=</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">scores</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
             <span class="n">vip_values</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vip</span><span class="p">(</span><span class="n">pls1</span><span class="p">)</span>
+            <span class="c1"># Select VIP values greater than 1</span>
             <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">vip_values</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="c1"># select spectra accordingly</span>
             <span class="n">X_selected</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="n">idx</span><span class="p">])</span>
+            <span class="c1"># fit plsr with selected bands</span>
             <span class="n">pls_sel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">simple_pls_cv</span><span class="p">(</span><span class="n">X_selected</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">n_comp</span><span class="o">=</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">scores</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-            <span class="c1"># pls2 = PLSRegression(n_components=i + 1)</span>
-            <span class="c1"># pls2.fit(X_selected, y)</span>
             <span class="n">y_cv</span> <span class="o">=</span> <span class="n">cross_val_predict</span><span class="p">(</span><span class="n">pls_sel</span><span class="p">,</span> <span class="n">X_selected</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
             <span class="n">mse</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_cv</span><span class="p">)</span>
             <span class="n">idx_selected</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+        <span class="c1"># get the components and spectra that led to the minimum MSE</span>
         <span class="n">opt_comp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">mse</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
         <span class="n">I</span> <span class="o">=</span> <span class="n">idx_selected</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">mse</span><span class="p">)]</span>
         <span class="n">X_opt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="n">I</span><span class="p">])</span>
         <span class="n">pls_opt</span><span class="p">,</span> <span class="n">r2_c</span><span class="p">,</span> <span class="n">r2_cv</span><span class="p">,</span> <span class="n">mse_c</span><span class="p">,</span> <span class="n">mse_cv</span><span class="p">,</span> <span class="n">y_cv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">simple_pls_cv</span><span class="p">(</span>
             <span class="n">X_opt</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">n_comp</span><span class="o">=</span><span class="n">opt_comp</span><span class="p">,</span> <span class="n">scores</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span>
-        <span class="c1"># pls_opt = PLSRegression(n_components=opt_comp)</span>
-        <span class="c1"># pls_opt.fit(X_opt, y)</span>
-        <span class="c1"># y_c = pls_opt.predict(X_opt)</span>
-        <span class="c1"># y_cv = cross_val_predict(pls_opt, X_opt, y, cv=10)</span>
-        <span class="c1"># # Calculate scores for calibration and cross-validation</span>
-        <span class="c1"># r2_c = r2_score(y, y_c)</span>
-        <span class="c1"># r2_cv = r2_score(y, y_cv)</span>
-        <span class="c1"># mse_c = mean_squared_error(y, y_c)</span>
-        <span class="c1"># mse_cv = mean_squared_error(y, y_cv)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">pls_opt</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scores</span> <span class="o">=</span> <span class="p">[</span><span class="n">r2_c</span><span class="p">,</span> <span class="n">r2_cv</span><span class="p">,</span> <span class="n">mse_c</span><span class="p">,</span> <span class="n">mse_cv</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span> <span class="o">=</span> <span class="n">I</span>
@@ -178,19 +206,22 @@
         <span class="n">opt_Xc</span> <span class="o">=</span> <span class="n">Xc</span><span class="p">[:,</span> <span class="n">mseminy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">:]</span>
         <span class="n">opt_ncomp</span> <span class="o">=</span> <span class="n">mseminx</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
         <span class="n">wav</span> <span class="o">=</span> <span class="n">mseminy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">sorted_ind</span> <span class="o">=</span> <span class="n">sorted_ind</span>
-        <span class="c1"># selected_index = sorted_ind[wav:]</span>
+        <span class="n">selected_index</span> <span class="o">=</span> <span class="n">sorted_ind</span><span class="p">[</span><span class="n">wav</span><span class="p">:]</span>
         <span class="n">pls_opt</span><span class="p">,</span> <span class="n">r2_c</span><span class="p">,</span> <span class="n">r2_cv</span><span class="p">,</span> <span class="n">mse_calib</span><span class="p">,</span> <span class="n">mse_cv</span><span class="p">,</span> <span class="n">y_cv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">simple_pls_cv</span><span class="p">(</span>
             <span class="n">opt_Xc</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">opt_ncomp</span><span class="p">,</span> <span class="n">scores</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">pls_opt</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scores</span> <span class="o">=</span> <span class="p">[</span><span class="n">r2_c</span><span class="p">,</span> <span class="n">r2_cv</span><span class="p">,</span> <span class="n">mse_calib</span><span class="p">,</span> <span class="n">mse_cv</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">y_cv</span> <span class="o">=</span> <span class="n">y_cv</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sorted_ind</span> <span class="o">=</span> <span class="n">sorted_ind</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">wav</span> <span class="o">=</span> <span class="n">wav</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span> <span class="o">=</span> <span class="n">selected_index</span></div>
 
 <div class="viewcode-block" id="hyper_plsr.predict"><a class="viewcode-back" href="../../../src.models.html#src.models.earhlab_lib.hyper_plsr.predict">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="n">X_m</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Apply plsr model to new observation</span>
+
+<span class="sd">        :param np.array X_m: new features</span>
+<span class="sd">        :returns: predicted target (e.g. nitrogen)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">X_m</span> <span class="o">=</span> <span class="n">X_m</span> <span class="o">-</span> <span class="n">model</span><span class="o">.</span><span class="n">_x_mean</span>
         <span class="n">X_m</span> <span class="o">=</span> <span class="n">X_m</span> <span class="o">/</span> <span class="n">model</span><span class="o">.</span><span class="n">_x_std</span>
         <span class="n">Ypred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X_m</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">)</span>
@@ -198,6 +229,12 @@
 
 <div class="viewcode-block" id="hyper_plsr.xr_predict"><a class="viewcode-back" href="../../../src.models.html#src.models.earhlab_lib.hyper_plsr.xr_predict">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">xr_predict</span><span class="p">(</span><span class="n">xdr</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">dim</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Wrapper around predict function to apply it to xarray objects</span>
+
+<span class="sd">        :param xr.dataarray x_dr: the xarray image</span>
+<span class="sd">        :param sklearn_obj model: the final plsr model</span>
+<span class="sd">        :param str dim: dimension along which model should be applied (e.g. &quot;band&quot;)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">pred</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">apply_ufunc</span><span class="p">(</span>
             <span class="n">hyper_plsr</span><span class="o">.</span><span class="n">predict</span><span class="p">,</span>
             <span class="n">xdr</span><span class="p">,</span>
