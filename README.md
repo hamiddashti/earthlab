@@ -1,7 +1,7 @@
 Nitrogen Map
 ==============================
 
-**Welcome! And thanks for the oppurtunity.**
+**Welcome! And thank you for the oppurtunity.**
 
 Here is the code sample that demostrate:
 
@@ -9,7 +9,7 @@ Here is the code sample that demostrate:
 * The reproducibility of the work.
 * A machine learning technique (partial least square regression) application.
 
-**Below you can find the project organization, description, and how to reproduce the results.**
+**Below you can find the project organization, project goal, and how to reproduce the results.**
 
 Project Organization
 ------------
