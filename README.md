@@ -31,7 +31,7 @@ The scripts provided in this project perform the following steps:
 5. Apply the model with better performance on the hyperspectral image to create the percent nitrogen map.
 
 
-**Below you can find the project organization, project goal, and how to reproduce the results.**
+**Below you can find the project organization, and how to reproduce the results.**
 
 Project Organization
 ------------
@@ -65,11 +65,10 @@ Project Organization
     │   ├── features       <- Scripts to turn raw data into features for modeling
     │   │   └── build_features.py
     │   │
-    │   ├── models         <- Scripts to train model and then use it to make
-    │   │   │                 predictions
-    │   │   ├── predict_model.py
-    │   │   └── train_model.py
-    │   │
+    │   ├── models         
+    │   │   │                 
+    │   │   └──earhlab_lib.py.py <- Scripts to train model and then use it to 
+    │   │                           make predictions
     └─── 
 
 Steps to reproduce the results
