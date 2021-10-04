@@ -14,7 +14,7 @@ Goal
 
 The main goal of this project is to create the nitrogen map of shrublands in the western US using hyperspectral data. To do so, we use partial least square regression (PLSR) which is a machine learning technique. In this model, the spectral bands are the predictors (features) and the measured percent nitrogen content is the target variable. [Here](https://github.com/hamiddashti/earthlab/blob/main/references/Short%20answer%20on%20why%20plsr.pdf) I provided short reasoning why I chose plsr for this project. The nitrogen data were measured from multiple shrubs in  10*10 meters plots collected from Idaho and California. The hyperspectral data comes from airborne AVIRIS-NG sensors. The original data is publically available:
 
-* [Link to the filed data](https://daac.ornl.gov/VEGETATION/guides/Idaho_field_shrub_data.html)
+* [Link to the field data](https://daac.ornl.gov/VEGETATION/guides/Idaho_field_shrub_data.html)
 * [Link to the hyperspectral images](https://daac.ornl.gov/VEGETATION/guides/AVIRIS-NG_Data_Idaho.html)
 
 The objective of this code is a presentation of one of the ways that machine learning can be used in remote sensing. Thus, the field data used in this project is already processed and summarized in a csv file. The image is also an small subsample of the original data. Both files are uploaded on Google Drive:
@@ -66,8 +66,7 @@ Project Organization
     │   │   └── build_features.py
     │   │
     │   ├── models         
-    │   │   │                 
-    │   │   └──earhlab_lib.py.py <- Scripts to train model and then use it to 
+    │   │   └──earhlab_lib.py <- Scripts to train model and then use it to 
     │   │                           make predictions
     └─── 
 
