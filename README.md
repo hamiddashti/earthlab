@@ -1,34 +1,32 @@
-# Maping plant nitrogen using hyperspectral and ML (Code Example)
+# Mapping Plant Nitrogen Using Hyperspectral and Machine Learning (Code Example)
 
 **Welcome!**
 
-Here is the code sample that demonstrate:
-
-- Part of remote sensing data that I work with (hyperspectral).
-- The reproducibility of the work.
-- A machine learning technique (partial least square regression) application.
+This code sample demonstrates:
+- Working with part of the remote sensing data that I specialize in (hyperspectral).
+- Ensuring the reproducibility of the work.
+- Applying a machine learning technique: Partial Least Square Regression (PLSR).
 
 ## Goal
 
-The main goal of this project is to create the nitrogen map of shrublands in the western US using hyperspectral data. To do so, we use partial least square regression (PLSR) which is a machine learning technique. In this model, the spectral bands are the predictors (features) and the measured percent nitrogen content is the target variable. [Here](https://github.com/hamiddashti/earthlab/blob/main/references/Short%20answer%20on%20why%20plsr.pdf) I provided short reasoning why I chose plsr for this project. The nitrogen data were measured from multiple shrubs in 10\*10 meters plots collected from Idaho and California. The hyperspectral data comes from airborne AVIRIS-NG sensors. The original data is publically available:
+The main goal of this project is to create a nitrogen map of shrublands in the western US using hyperspectral data. To achieve this, we use Partial Least Square Regression (PLSR), a machine learning technique. In this model, the spectral bands serve as predictors (features), and the measured percent nitrogen content is the target variable. [Here](https://github.com/hamiddashti/earthlab/blob/main/references/Short%20answer%20on%20why%20plsr.pdf) is a brief rationale for choosing PLSR for this project. The nitrogen data were collected from multiple shrubs within 10x10 meter plots in Idaho and California. The hyperspectral data is acquired from airborne AVIRIS-NG sensors. The original data is publicly available:
 
-- [Link to the field data](https://daac.ornl.gov/VEGETATION/guides/Idaho_field_shrub_data.html)
-- [Link to the hyperspectral images](https://daac.ornl.gov/VEGETATION/guides/AVIRIS-NG_Data_Idaho.html)
+- [Field Data Link](https://daac.ornl.gov/VEGETATION/guides/Idaho_field_shrub_data.html)
+- [Hyperspectral Images Link](https://daac.ornl.gov/VEGETATION/guides/AVIRIS-NG_Data_Idaho.html)
 
-The objective of this code is a presentation of one of the ways that machine learning can be used in remote sensing. Thus, the field data used in this project is already processed and summarized in a csv file. The image is also an small subsample of the original data. Both files are uploaded on Google Drive:
+The code aims to showcase how machine learning can be utilized in remote sensing. Therefore, the field data used here is pre-processed and summarized in a CSV file, and the image is a small subset of the original data. Both files are available on Google Drive:
 
-- [Link to the field data used in this project](https://drive.google.com/file/d/1UOEeyzHW-h0el2Qzk1o7BiSsqT8f8ax2/view?usp=sharing)
-- [Link to the image used in this project](https://drive.google.com/file/d/1XZMnMvglfqABTA3oVaJGUM3X-qV1uOqa/view?usp=sharing)
+- [Field Data for This Project](https://drive.google.com/file/d/1UOEeyzHW-h0el2Qzk1o7BiSsqT8f8ax2/view?usp=sharing)
+- [Image for This Project](https://drive.google.com/file/d/1XZMnMvglfqABTA3oVaJGUM3X-qV1uOqa/view?usp=sharing)
 
-The scripts provided in this project perform the following steps:
-
+The provided scripts perform these steps:
 1. Download the data.
 2. Clean the training data.
-3. Some initial data exploration.
-4. Train the PLSR model using cleaned data and two different feature selection methods. More explanation provided in the main script.
-5. Apply the model with better performance on the hyperspectral image to create the percent nitrogen map.
+3. Perform initial data exploration.
+4. Train the PLSR model using cleaned data and two different feature selection methods.
+5. Apply the better-performing model on the hyperspectral image to create the nitrogen map.
 
-**Below you can find the project organization, and how to reproduce the results.**
+**Below is the project organization and instructions to reproduce the results.**
 
 ## Project Organization
 
